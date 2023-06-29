@@ -18,10 +18,6 @@ const SearchParams = () => {
     const results = useQuery(["search", requestParams], fetchSearch)
     const pets = results?.data?.pets ?? [];
 
-   
-
-
-
     return (
         <div className="search-params">
             <form onSubmit={e => 
