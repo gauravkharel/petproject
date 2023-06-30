@@ -3,35 +3,40 @@ import Details from "./Details";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, StrictMode } from "react";
 import SearchParams from "./SearchParams";
+import AdoptedPetContext from "./AdoptedPetContext";
+import { ThemeProvider } from "./ThemeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
       cacheTime: Infinity,
-    }
-  }
-})
+    },
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const adoptedPet = useState(null);
+  // const theme = useContext(ThemeContext);
+  // const darkMode = theme.state.darkMode;
   return (
-    <StrictMode>
-      <div className="App">
-        <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-          <Link to="/"><h1>Adopt Me!</h1></Link>
-          <Routes>
-            <Route path="/details/:id" element={<Details />} />
-            <Route path="/" element={<SearchParams />} />
-          </Routes>
-          </QueryClientProvider>
-          
-        </BrowserRouter>
-      </div>
-
-    </StrictMode>
+    <div>
+      <BrowserRouter>
+        {/* <ThemeProvider> */}
+          <AdoptedPetContext.Provider value={adoptedPet}>
+            <QueryClientProvider client={queryClient}>
+              <header>
+                <Link to="/">Adopt Me!</Link>
+              </header>
+              <Routes>
+                <Route path="/details/:id" element={<Details />} />
+                <Route path="/" element={<SearchParams />} />
+              </Routes>
+            </QueryClientProvider>
+          </AdoptedPetContext.Provider>
+        {/* </ThemeProvider> */}
+      </BrowserRouter>
+    </div>
   );
 }
 
