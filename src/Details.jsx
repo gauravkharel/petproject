@@ -19,7 +19,7 @@ export const Details = () => {
         return (
             <div className="loading-pane">
                 <h2 className="loader">Take a deep breath</h2>
-                <h3>3.. 2.. 1..</h3>
+                <h3>3.. 2.. 1..</h3>t
             </div>
         )
     }
@@ -38,7 +38,7 @@ export const Details = () => {
                                     <h1>Would you like to adopt {pet.name}?</h1>
                                     <div className="buttons">
                                         <button  onClick={() => {
-                                                setAdoptedPet(pet);
+                                             setAdoptedPet(pet);
                                                 navigate("/");
                                             }}
                                             >

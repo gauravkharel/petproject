@@ -17,6 +17,7 @@ const Results = ({ pets }) => {
                             location={`${pet.city}, ${pet.state}`}
                             id={pet.id}
                         />
+                        
                     )
                 })
             )}

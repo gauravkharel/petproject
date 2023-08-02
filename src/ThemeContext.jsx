@@ -8,17 +8,20 @@ export const ThemeProvider = (props) => {
     return <ThemeContext.Provider value={{ state: state, dispatch: dispatch }}>{props.children}</ThemeContext.Provider>;
   }
 
+const [darkMode, setDarkMode] = useState(false)
 
-const initialState = {darkMode: false}
+const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+}
 
-const themeReducer = (state, action) => {
+const themeReducer = (isDarkMode, action) => {
     switch (action.type){
         case "LIGHTMODE":
             return { darkMode: false};
         case "DARKMODE": 
             return {darkMode: true};
         default:
-            return state;
+            return false;
         }
 }
 

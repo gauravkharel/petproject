@@ -88,6 +88,7 @@ const SearchParams = () => {
                 <button>Submit</button>
             </form>
             <Results pets={pets} />
+            
         </div>
     );
 };
