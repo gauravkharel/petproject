@@ -1,3 +1,4 @@
+import { PetAPIResponse } from "./APIResponseTypes";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +12,11 @@ export const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const results = useQuery(["details", id], fetchPet);
+  if (!id) {
+    throw new Error("no id provided to details");
+  }
+  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (results.isLoading) {
@@ -22,7 +27,11 @@ export const Details = () => {
       </div>
     );
   }
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+  if (!pet) {
+    throw new Error("pet not found");
+  }
+  
   return (
     <div className="details">
       <Carousel images={pet.images} />
@@ -54,10 +63,10 @@ export const Details = () => {
   );
 };
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   );
 }

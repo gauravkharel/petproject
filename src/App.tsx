@@ -1,3 +1,4 @@
+import { Pet } from "./APIResponseTypes";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
@@ -15,7 +16,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const adoptedPet = useState(null);
+  const adoptedPet = useState(null as Pet | null);
   return (
     <div>
       <BrowserRouter>
@@ -31,7 +32,9 @@ const App = () => {
           </QueryClientProvider>
         </AdoptedPetContext.Provider>
       </BrowserRouter>
+     
     </div>
   );
 };
+
 export default App;
